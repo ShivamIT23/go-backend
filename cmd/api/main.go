@@ -3,12 +3,13 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/ShivamIT23/go-backend/internal/handlers"
 	"github.com/go-chi/chi"
-	"github.com/shivamIT23/go-backend/internal/handlers"
 	log "github.com/sirupsen/logrus"
 )
 
-func main(){
+func main() {
 
 	log.SetReportCaller(true)
 	var r *chi.Mux = chi.NewRouter()
@@ -23,8 +24,8 @@ func main(){
  \ \_____\  \ \_____\     \ \_\ \_\  \ \_\    \ \_\ 
   \/_____/   \/_____/      \/_/\/_/   \/_/     \/_/ `)
 
-	err := http.ListenAndServe('localhost:8000',r)
-	if err != nil{
+	err := http.ListenAndServe("localhost:8000", r)
+	if err != nil {
 		log.Error(err)
 	}
 }

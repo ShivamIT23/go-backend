@@ -1,36 +1,36 @@
 package api
 
 import (
-	"net/http"
 	"encoding/json"
+	"net/http"
 )
 
-type CoinBalanceParams struct{
+type CoinBalanceParams struct {
 	Username string
 }
 
-type CoinBalanceResponse struct{
+type CoinBalanceResponse struct {
 	// Code to send on response, usually 200 for success
-	Code int8
+	Code int
 
 	Balance int64
 }
 
-type Error struct{
+type Error struct {
 	//same code for error, usually 500 for internal server error
-	Code int8
+	Code int
 
 	Message string
 }
 
-func writeError( w http.ResponseWriter , message string , code int8){
+func writeError(w http.ResponseWriter, message string, code int) {
 
 	resp := Error{
-		Code : code,
-		Message : message
+		Code:    code,
+		Message: message,
 	}
 
-	w.Header().set("Content-type","application/json")
+	w.Header().Set("Content-type", "application/json")
 
 	w.WriteHeader(code)
 
@@ -38,10 +38,10 @@ func writeError( w http.ResponseWriter , message string , code int8){
 }
 
 var (
-	requestErrorHandler = func(w http.ResponseWriter , err error){
-		writeError(w,err.Error(),http.StatusBadRequest)
+	RequestErrorHandler = func(w http.ResponseWriter, err error) {
+		writeError(w, err.Error(), http.StatusBadRequest)
 	}
-	internalErrorHandler = func(w http.ResponseWriter){
-		writeError(w,"An unExpected Error Occured",http.StatusInternalServerError)
+	InternalErrorHandler = func(w http.ResponseWriter) {
+		writeError(w, "An unExpected Error Occured", http.StatusInternalServerError)
 	}
 )
